@@ -1,17 +1,23 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header/>
+    <router-view></router-view>
+    <!-- Footer组件在Home 和Search显示，在登录和注册隐藏 -->
+    <!-- 方法一：借助$route.path -->
+    <!-- <Footer v-show="$route.path=='/home'||$route.path=='/search'"></Footer> -->
+    <!-- 方法二：在路由元信息中meta里进行设置 -->
+    <Footer v-show="$route.meta.show"></Footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Header from './components/Header';
+import Footer from './components/Footer';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    Footer
   }
 }
 </script>
