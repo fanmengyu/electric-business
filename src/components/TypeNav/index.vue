@@ -72,9 +72,7 @@ export default {
       show:true,
     };
   },
-  mounted() {
-    //通知 Vuex发送请求，获取数据，存储于仓库中
-    this.$store.dispatch("categoryList");
+  mounted() { 
     
     //如果不是home组件，将该组件进行隐藏
     if(this.$route.path != '/home'){
@@ -124,6 +122,11 @@ export default {
             query.category2Id = category2id;
           }else{
             query.category3Id = category3id;
+          }
+
+          //判断是否有params参数
+          if(this.$route.params){
+            location.params = this.$route.params;
           }
           //整理完参数
           location.query = query;
