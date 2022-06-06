@@ -3,10 +3,11 @@
   <div class="type-nav">
     <!-- <h1>{{categoryList}}</h1> -->
     <div class="container">
-      <div  @mouseleave="leaveIndex">
+      <div  @mouseleave="leaveIndex" @mouseenter="enterShow">
         <h2 class="all">全部商品分类</h2>
         <!-- 三级联动 -->
-        <div class="sort">
+        <transition name="sort">
+                <div class="sort" v-show="show">
           <div class="all-sort-list2" @click="goSearch">
             <div
               class="item"
@@ -15,7 +16,7 @@
               :class="{ cur: currentIndex==index }">
               <h3 @mouseenter="changeIndex(index)">
                   <!-- <router-link to="/search">{{c1.categoryName}}</router-link> -->
-                <a :data-categoryName="c1.categoryName">{{ c1.categoryName }}</a>
+                <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{ c1.categoryName }}</a>
               </h3>
                             <!-- 二级三级分类 -->
               <div class="item-list clearfix" :style="{display:currentIndex==index?'block':'none'}">
@@ -25,7 +26,7 @@
                   :key="c2.categoryId">
                   <dl class="fore">
                     <dt>
-                      <a :data-categoryName="c2.categoryName">{{ c2.categoryName }}</a>
+                      <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{ c2.categoryName }}</a>
                        <!-- <router-link to="/search">{{c2.categoryName}}</router-link> -->
                     </dt>
                     <dd>
@@ -33,7 +34,7 @@
                         v-for="(c3, index) in c2.categoryChild"
                         :key="c3.categoryId"
                       >
-                        <a :data-categoryName="c3.categoryName">{{ c3.categoryName }}</a>
+                        <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{ c3.categoryName }}</a>
                          <!-- <router-link to="/search">{{c3.categoryName}}</router-link> -->
                       </em>
                     </dd>
@@ -43,6 +44,7 @@
             </div>
           </div>
         </div>
+        </transition>
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -67,11 +69,17 @@ export default {
   data() {
     return {
       currentIndex: -1,
+      show:true,
     };
   },
   mounted() {
     //通知 Vuex发送请求，获取数据，存储于仓库中
     this.$store.dispatch("categoryList");
+    
+    //如果不是home组件，将该组件进行隐藏
+    if(this.$route.path != '/home'){
+      this.show = false;
+    }
   },
   computed: {
     ...mapState({
@@ -91,6 +99,9 @@ export default {
     //一级分类鼠标移出的事件回调
     leaveIndex() {
         this.currentIndex = -1;
+        if(this.$route.path!='/home'){
+        this.show = false;
+        }
     },
     //进行路由跳转的方法
     goSearch(event){
@@ -99,10 +110,30 @@ export default {
         //解决办法：1.给a标签加上自定义属性data-categoryName
         let element = event.target;
 
-        //节点有一个睡醒dataset属性，可以获取节点的自定义属性与属性值
-        let {categoryName} = element.dataset;
+        //节点有一个dataset属性，可以获取节点的自定义属性与属性值
+        let {categoryname,category1id,category2id,category3id,} = element.dataset;
         //区分点击的是几级标签
-        this.$router.push('/search')
+        // this.$router.push('/search')
+        if(categoryname){
+          //整理路由跳转的参数
+          let location = {name:'search'};
+          let query = {categoryName:categoryname};
+          if(category1id){
+            query.category1Id = category1id;
+          }else if(category2id){
+            query.category2Id = category2id;
+          }else{
+            query.category3Id = category3id;
+          }
+          //整理完参数
+          location.query = query;
+          //路由跳转
+          this.$router.push(location);
+        }
+    },
+    //当鼠标移入时，让商品分类列表展示出来
+    enterShow(){
+      this.show = true;
     }
   },
 };
@@ -231,6 +262,18 @@ export default {
           background-color: skyblue;
         }
       }
+    }
+
+    //过渡动画
+    .sort-enter{
+      height: 0;
+    }
+    .sort-enter-to{
+      height: 461px;
+    }
+    //定义动画时间
+    .sort-enter-active{
+      transition:all .5s linear ;
     }
   }
 }
