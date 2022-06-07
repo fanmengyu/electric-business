@@ -8,9 +8,11 @@ Vue.component(TypeNav.name,TypeNav)
 import router from '@/router';
 
 import store from '@/store/index';
-import {reqCategoryList} from '@/api/index'
+import {reqCategoryList} from '@/api/index';
 reqCategoryList();
-
+import '@/mock/mockServer';
+//引入swiper样式
+import 'swiper/css/swiper.css'
 
 Vue.config.productionTip = false
 
