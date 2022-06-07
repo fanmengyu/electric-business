@@ -104,33 +104,44 @@ export default {
     //派发action：通过vuex发起ajax请求，
     this.$store.dispatch("getBannerList");
     //在此处不能new Swiper ，因为dispatch中涉及到了异步，导致v-for遍历的时候结构还有完全，因此不行
-    setTimeout(() => {
-      var mySwiper = new Swiper(document.querySelector(".swiper-container"), {
-        // direction: "vertical", // 垂直切换选项
-        loop: true, // 循环模式选项
-        // 如果需要分页器
-        pagination: {
-          el: ".swiper-pagination",
-          clickable:true,
-        },
-
-        // 如果需要前进后退按钮
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-
-        // 如果需要滚动条
-        scrollbar: {
-          el: ".swiper-scrollbar",
-        },
-      });
-    },2000);
   },
   computed: {
     ...mapState({
       bannerList: (state) => state.home.bannerList,
     }),
+  },
+  watch: {
+    //监听bannerList的变化，由空数组变为有四个元素的数组
+    bannerList: {
+      handler(newValue, oldValue) {
+        //当前这个函数执行，只能保证bannerList数据已经有了，但是你没办法保证v-for已经执行结束
+         this.$nextTick(() => {
+          var mySwiper = new Swiper(
+            document.querySelector(".swiper-container"),
+            {
+              loop: true, // 循环模式选项
+
+              // 如果需要分页器
+              pagination: {
+                el: ".swiper-pagination",
+                clickable:true,
+              },
+
+              // 如果需要前进后退按钮
+              navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+              },
+
+              // 如果需要滚动条
+              scrollbar: {
+                el: ".swiper-scrollbar",
+              },
+            }
+          );
+        });
+      },
+    },
   },
 };
 </script>
