@@ -4,7 +4,7 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container" ref="mySwiper">
           <div class="swiper-wrapper">
             <div
               class="swiper-slide"
@@ -107,7 +107,7 @@ export default {
   },
   computed: {
     ...mapState({
-      bannerList: (state) => state.home.bannerList,
+      bannerList: (state) => state.home.bannerList
     }),
   },
   watch: {
@@ -117,7 +117,7 @@ export default {
         //当前这个函数执行，只能保证bannerList数据已经有了，但是你没办法保证v-for已经执行结束
          this.$nextTick(() => {
           var mySwiper = new Swiper(
-            document.querySelector(".swiper-container"),
+           this.$refs.mySwiper,
             {
               loop: true, // 循环模式选项
 

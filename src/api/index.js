@@ -9,3 +9,6 @@ export const reqCategoryList = () => {
 //获取首页轮播图的接口
 export const reqGetBannerList = () => mockRequests.get('/banner');
 
+
+//获取Floor组件的数据
+export const reqFloorList = () => mockRequests.get('/floor');

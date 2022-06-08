@@ -1,9 +1,10 @@
 import {reqCategoryList} from '@/api'
-import {reqGetBannerList} from '@/api'
+import {reqGetBannerList, reqFloorList} from '@/api'
 //state可以理解为仓库，存储数据
 const state = {
     categoryList:[],
     bannerList:[],
+    floorList:[],
 
 };
 //mutations 修改state的唯一手段
@@ -13,6 +14,9 @@ const mutations = {
     },
     GETBANNERLIST(state, bannerList){
         state.bannerList = bannerList;
+    },
+    GETFLOORLIST(state, floorList){
+        state.floorList = floorList;
     }
 
 };
@@ -28,9 +32,14 @@ const actions = {
 
     async getBannerList({commit}){
         let result =await reqGetBannerList();
-        console.log(result);
         if(result.code == 200){
             commit("GETBANNERLIST",result.data)
+        }
+    },
+    async getFloorList({commit}){
+        let result =await reqFloorList();
+        if(result.code == 200){
+            commit("GETFLOORLIST",result.data)
         }
     }
 
