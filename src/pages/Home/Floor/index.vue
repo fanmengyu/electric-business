@@ -3,11 +3,15 @@
   <div class="floor">
     <div class="py-container">
       <div class="title clearfix">
-        <h3 class="fl">{{list.name}}</h3>
+        <h3 class="fl">{{ list.name }}</h3>
         <div class="fr">
           <ul class="nav-tabs clearfix">
-            <li class="active" v-for="(nav,index) in list.navList" :key="index">
-              <a href="#tab1" data-toggle="tab">{{nav.text}}</a>
+            <li
+              class="active"
+              v-for="(nav, index) in list.navList"
+              :key="index"
+            >
+              <a href="#tab1" data-toggle="tab">{{ nav.text }}</a>
             </li>
           </ul>
         </div>
@@ -23,24 +27,9 @@
               </ul>
               <img :src="list.imgUrl" />
             </div>
-            <div class="floorBanner" >
-              <div class="swiper-container" ref="cur">
-                <div class="swiper-wrapper" >
-                  <div
-                    class="swiper-slide"
-                    v-for="(carousel, index) in list.carouselList"
-                    :key="carousel.id"
-                  >
-                    <img :src="carousel.imgUrl" />
-                  </div>
-                </div>
-                <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
-
-                <!-- 如果需要导航按钮 -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-              </div>
+            <div class="floorBanner">
+          <!-- 轮播图 -->
+            <Carousel :list="list.carouselList"/>
             </div>
             <div class="split">
               <span class="floor-x-line"></span>
@@ -71,31 +60,42 @@
 </template>
 
 <script>
-import Swiper from "swiper";
+// import Swiper from "swiper";
 export default {
   props: ["list"],
-  mounted() {
-    var mySwiper = new Swiper(this.$refs.cur, {
-      loop: true, // 循环模式选项
+  mounted() {},
+  /*
+  watch: {
+    list: {
+      //由于list是父元素传过来的，从未发生变化，只能添加immediate属性才能进行监听
+      immediate: true, //立即监听
+      handler() {
+        this.$nextTick(() => {
+          var mySwiper = new Swiper(this.$refs.cur, {
+            loop: true, // 循环模式选项
 
-      // 如果需要分页器
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
+            // 如果需要分页器
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+            },
 
-      // 如果需要前进后退按钮
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
 
-      // 如果需要滚动条
-      scrollbar: {
-        el: ".swiper-scrollbar",
+            // 如果需要滚动条
+            scrollbar: {
+              el: ".swiper-scrollbar",
+            },
+          });
+        });
       },
-    });
+    },
   },
+  */
 };
 </script>
 
