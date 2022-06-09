@@ -12,3 +12,8 @@ export const reqGetBannerList = () => mockRequests.get('/banner');
 
 //获取Floor组件的数据
 export const reqFloorList = () => mockRequests.get('/floor');
+
+//获取搜索模块数据 地址:/api/list
+export const reqGetSearchInfo = (params) => {
+    return requests({url:'/list', method:'post',data:params})
+}
