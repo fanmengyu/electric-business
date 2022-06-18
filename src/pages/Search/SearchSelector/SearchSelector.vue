@@ -4,8 +4,9 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li>索尼（SONY）</li>
-          <li>TCL</li>
+          <li v-for="(trademark,index) in  trademarkList" :key="trademark.tmId" @click="tradeMarkHandler(trademark)">{{trademark.tmName}}</li>
+
+          <!-- <li>TCL</li>
           <li>长虹（CHANGHONG）</li>
           <li>飞利浦（PHILIPS）</li>
           <li>风行电视</li>
@@ -21,7 +22,7 @@
           <li><img src="./images/phone01.png" /></li>
           <li><img src="./images/phone06.png" /></li>
           <li><img src="./images/phone07.png" /></li>
-          <li><img src="./images/phone02.png" /></li>
+          <li><img src="./images/phone02.png" /></li> -->
         </ul>
       </div>
       <div class="ext">
@@ -29,12 +30,12 @@
         <a href="javascript:void(0);">更多</a>
       </div>
     </div>
-    <div class="type-wrap">
-      <div class="fl key">网络制式</div>
+    <div class="type-wrap" v-for="(attr,index) in attrsList" :key="attr.attrId">
+      <div class="fl key">{{attr.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li>
-            <a>GSM（移动/联通2G）</a>
+          <li v-for="(attrValue,index) in attr.attrValueList" :key="attrValue" @click="attrInfo(attr,attrValue)">
+            <a>{{attrValue}}</a>
           </li>
           <!-- <li>
             <a>电信2G</a>
@@ -62,7 +63,7 @@
           </li>
           <li>
             <a>联通4G</a>
-          </li>
+          </li> -->
         </ul>
       </div>
       <div class="fl ext"></div>
@@ -159,8 +160,24 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
   export default {
     name: 'SearchSelector',
+    computed:{
+      ...mapGetters(['trademarkList',"attrsList"])
+    },
+    methods: {
+      tradeMarkHandler(trademark){
+        //品牌的处理函数
+        //在父组件中发送请求因为复杂减重searchParams参数时代给服务器参数，子组件组件把你带年纪的品牌信息传给父
+        this.$emit('trademarkInfo',trademark);
+      },
+      attrInfo(attr,attrValue){
+        this.$emit('attrInfo',attr,attrValue);
+
+      }
+
+    },
   }
 </script>
 
