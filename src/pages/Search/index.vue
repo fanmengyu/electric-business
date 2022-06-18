@@ -119,8 +119,81 @@
       SearchSelector
     },
     mounted() {
-      this.$store.dispatch('getSearchList',{})
+    //在发请求之前带给服务器参数【searchParmas参数发生变化有数组带给服务器】
+    this.getData();
+  },
+  computed: {
+    ...mapGetters(["goodsList"]),
+    isOne(){
+      return this.searchParams.order.indexOf('1') != -1
+
     },
+    isTwo(){
+      return this.searchParams.order.indexOf('2') != -1
+
+    },
+    isAsc(){
+      return this.searchParams.order.indexOf('asc') != -1
+    },
+    isDesc(){
+      return this.searchParams.order.indexOf('desc') != -1
+    }
+  },
+  methods: {
+    clearCategoryName(){
+      //对象里的undefined字段不会带给服务器
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
+    },
+    //向服务器发请求获取search模块数据（根据参数不同返回不同的数据进行展示）
+    //把这次请求封装为一个函数，当你需要在调用的时候调用即可。
+
+    getData() {
+      this.$store.dispatch("getSearchList", this.searchParams);
+    },
+    removeCategoryName() {
+      this.searchParams.categoryName = undefined;
+      this.clearCategoryName();
+      //还需要再次向服务器发请求
+      this.getData();
+      //地址栏也需要改进：进行路由跳转
+      if(this.$route.params){
+        this.$router.push({name:"search",params:this.$route.params});
+      }
+    },
+    removeKeyword(){
+       this.searchParams.keyword = undefined;
+      //删除关键字
+      this.$bus.$emit("clear");
+      //进行路由跳转
+      if(this.$route.query){
+        this.$router.push({name:"search",query:this.$route.query});
+      }
+    },
+    trademarkInfo(trademark){
+      this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`
+      // console.log('我是父组件'+trademark);
+      this.getData();
+   },
+   removeTradeMark(){
+     //删除品牌信息
+     this.searchParams.trademark = undefined;
+     this.getData();
+   },
+   //手机平台属性地方回调函数（自定义事件）
+   attrInfo(attr,attrValue){
+     let props = `${attr.attrId}:${attrValue}:${attr.attrName}`;
+     //数组去重后再push
+     if(this.searchParams.props.indexOf(props)==-1){
+       this.searchParams.props.push(props);
+     }
+     this.getData();
+   },
+   removeAttr(index){
+     this.searchParams.props.splice(index,1);
+     this.getData();
+   },
     computed:{
      ...mapGetters(['goodsList'])
 
