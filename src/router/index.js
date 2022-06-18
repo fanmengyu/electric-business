@@ -24,10 +24,7 @@ VueRouter.prototype.replace = function(location,reslove,reject){
 
 //使用插件，主要要使用Vue.use()
 Vue.use(VueRouter);
-
-//配置路由
-export default new VueRouter({
-    routes:[
+const routes=[
     {
         path:"/home",
         component:(()=>import("@/pages/Home")),
@@ -48,6 +45,12 @@ export default new VueRouter({
 
     },
     {
+        path:"/detail/:skuid",
+        component:(()=>import("@/pages/Detail")),
+        meta:{show:false}
+
+    },
+    {
         path:"/login",
         component:(()=>import("@/pages/Login")),
         meta:{show:false}
@@ -57,8 +60,6 @@ export default new VueRouter({
         path:"/register",
         component:(()=>import("@/pages/Register")),
         meta:{show:false}
-
-
     },
     //重定向
     {
@@ -66,4 +67,11 @@ export default new VueRouter({
         redirect:'/home'
     }
     ]
+//配置路由
+export default new VueRouter({
+    routes,
+    scrollBehavior(to, from, savePostion){
+        return {y:0};
+    }
+
 })
