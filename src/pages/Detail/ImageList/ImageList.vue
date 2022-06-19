@@ -1,8 +1,8 @@
 <template>
-  <div class="swiper-container">
+  <div class="swiper-container" ref="cur">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="../images/s1.png">
+      <div class="swiper-slide" v-for="(slide,index) in skuImageList" :key="slide.id">
+        <img :src="slide.imgUrl" :class="{active:currentIndex==index}" @click="changeCurrentIndex(index)">
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -11,10 +11,41 @@
 </template>
 
 <script>
-
   import Swiper from 'swiper'
   export default {
     name: "ImageList",
+    data(){
+      return{
+        currentIndex:0
+      }
+    },
+    props:["skuImageList"],
+    watch:{
+      //监听数据：可以保证数据一定OK，但是不能保证v-for遍历结构是否完事
+      skuImageList(newValue,oldValue){
+        this.$nextTick(()=>{
+           var mySwiper = new Swiper(this.$refs.cur, {
+            // loop: true, // 循环模式选项
+
+            // 如果需要前进后退按钮
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+            slidesPerView:3,
+            slidesPerGroup:1
+          });
+          
+        });
+      }
+    },
+    methods: {
+      changeCurrentIndex(index){
+        this.currentIndex=index;
+        //通知兄弟组件当前的索引值为什么
+        this.$bus.$emit('getIndex',index);
+      }
+    },
   }
 </script>
 
