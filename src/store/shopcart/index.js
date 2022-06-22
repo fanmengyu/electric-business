@@ -38,7 +38,15 @@ const actions = {
             return Promise.reject(new Error('fail'));
         }
     },
-
+    //!!!一个难点
+    deleteAllCheckedCart({dispatch,getters}){
+        let PromiseAll = [];
+        getters.cartList.cartInfoList.forEach(item=>{
+            let promise=item.isChecked==1?dispatch('deleteCartListBySkuID',item.skuId):'';
+            PromiseAll.push(promise);
+        })
+        return Promise.all(PromiseAll);
+    }
 
 };
 

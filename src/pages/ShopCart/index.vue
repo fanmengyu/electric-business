@@ -142,7 +142,14 @@ export default {
       }
     },
     //删除购物车中选中的所有
-    async deleteAllCheckedCart(){},
+    async deleteAllCheckedCart(){
+      try{
+       await this.$store.dispatch('deleteAllCheckedCart');
+       this.getData();
+      }catch(error){
+         alert(error.message);
+      }
+    },
   },
   computed: {
     ...mapGetters(["cartList"]),
