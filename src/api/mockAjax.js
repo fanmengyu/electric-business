@@ -13,13 +13,14 @@ const requests = axios.create({
     //基础路径，发送请求时，路径中会出现api
     baseURL:"/mock",
     //代表请求超时的事件5s
-    timeout:5000,
+    timeout:500
 })
 
 //请求拦截器
 requests.interceptors.request.use((config)=>{
     //config ：配置对象，对象里面有一个属性很重要，headers请求头
     //进度条开始动
+
     nprogress.start();
     return config;
 })

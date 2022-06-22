@@ -1,7 +1,8 @@
 import {reqGoodsInfo,reqAddOrUpdateShopCart} from '@/api';
+import {getUUId} from '@/utils/uuid_token'
 const state = {
-    goodInfo:{}
-
+    goodInfo:{},
+    uuid_token:getUUId()
 };
 //mutations 修改state的唯一手段
 const mutations = {
@@ -20,6 +21,7 @@ const actions = {
     },
     async addOrUpdateShopCart({commit}, {skuId,skuNum}){
         let result =await reqAddOrUpdateShopCart(skuId,skuNum);
+
         if(result.code == 200){
             return "ok";
         }else{

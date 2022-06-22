@@ -45,7 +45,7 @@ const routes=[
 
     },
     {
-        path:"/detail/:skuid",
+        path:"/detail/:skuId?",
         component:(()=>import("@/pages/Detail")),
         meta:{show:true}
 

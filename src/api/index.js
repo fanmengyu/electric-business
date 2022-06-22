@@ -21,4 +21,13 @@ export const reqGetSearchInfo = (params) => {
 export const reqGoodsInfo=(skuid)=>requests({url:`/item/${skuid}`, method:'get'})
 
 //将商品添加到购物车中
-export const reqAddOrUpdateShopCart=(skuId,skuNum)=>requests({url:`/cart/addToCart/${skuId}/${skuNum}`, method:'post'})
+export const reqAddOrUpdateShopCart=(skuId,skuNum)=>requests({url:`/cart/addToCart/${skuId}/${skuNum}`,method:'post'})
+
+//获取购物车列表数据接口
+export const reqCartList=()=>requests({url:'/cart/cartList',method:'get'})
+
+//删除购物产品的接口
+export const reqDeleteCartById=(skuId)=>requests({url:`/cart/deleteCart/${skuId}`,method:'delete'})
+
+//修改商品的选中状态
+export const reqUpdateCheckedByid = (skuId,isChecked)=>requests({url:`/cart/checkCart/${skuId}/${isChecked}`,method:'get'})

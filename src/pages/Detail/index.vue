@@ -379,8 +379,8 @@
         //2.服务器存储成功--进行路由跳转
         //3.失败，给用户提示
         try{
-          let result = await this.$store.dispatch('addOrUpdateShopCart',{
-            skuId:this.$route.params.skuid,
+           await this.$store.dispatch('addOrUpdateShopCart',{
+            skuId:this.$route.params.skuId,
             skuNum:this.skuNum
             });
             //进行路由跳转
@@ -388,9 +388,9 @@
             //一些简单的数，通过query形式给路由组件传递过去
             //产品信息的一些数据【比较复杂：skuInfo】通过Sessionstorage
             sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo))
-            this.$router.push({name:'addcartsuccess',query:{skuNum:this.skuNum}})
+            this.$router.push({path:'/addcartsuccess',query:{skuNum:this.skuNum}})
             //
-        }catch{
+        }catch(eror){
           alert('error')
         }
       }
