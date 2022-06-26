@@ -37,3 +37,12 @@ export const reqGetCode = (phone)=>requests({url:`/user/passport/sendCode/${phon
 
 //注册 /api/user/passport/register post
 export const reqUserRegister = (data)=>requests({url:`/user/passport/register`,data,method:'post'})
+
+//登录 /api/user/passport/login post phone&password   key-val一致时可以只写一个
+export const reqUserLogin = (data) => requests({url:'/user/passport/login',data,method:'post'})
+
+//登陆后获取用户信息，需要带着用户token   /user/passport/auth/getUserInfo
+export const reqUserInfo = () => requests({url:'/user/passport/auth/getUserInfo',method:'get'})
+
+//退出登录 /api/user/passport/logout
+export const reqLogOut = () => requests({url:'/user/passport/logout',method:'get'})

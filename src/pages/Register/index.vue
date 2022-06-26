@@ -24,7 +24,7 @@
       <div class="content">
         <label>登录密码:</label>
         <input
-          type="text"
+          type="password"
           placeholder="请输入你的登录密码"
           v-model="password"
         />
@@ -32,7 +32,7 @@
       </div>
       <div class="content">
         <label>确认密码:</label>
-        <input type="text" placeholder="请输入确认密码" v-model="password1" />
+        <input type="password" placeholder="请输入确认密码" v-model="password1" />
         <!-- <span class="error-msg">错误提示信息</span> -->
       </div>
       <div class="controls">

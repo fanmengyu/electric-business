@@ -5,24 +5,6 @@
       <div class="value logos">
         <ul class="logo-list">
           <li v-for="(trademark,index) in  trademarkList" :key="trademark.tmId" @click="tradeMarkHandler(trademark)">{{trademark.tmName}}</li>
-
-          <!-- <li>TCL</li>
-          <li>长虹（CHANGHONG）</li>
-          <li>飞利浦（PHILIPS）</li>
-          <li>风行电视</li>
-          <li><img src="./images/phone06.png" /></li>
-          <li><img src="./images/phone07.png" /></li>
-          <li><img src="./images/phone08.png" /></li>
-          <li><img src="./images/phone09.png" /></li>
-          <li><img src="./images/phone10.png" /></li>
-          <li><img src="./images/phone11.png" /></li>
-          <li><img src="./images/phone12.png" /></li>
-          <li><img src="./images/phone12.png" /></li>
-          <li><img src="./images/phone14.png" /></li>
-          <li><img src="./images/phone01.png" /></li>
-          <li><img src="./images/phone06.png" /></li>
-          <li><img src="./images/phone07.png" /></li>
-          <li><img src="./images/phone02.png" /></li> -->
         </ul>
       </div>
       <div class="ext">

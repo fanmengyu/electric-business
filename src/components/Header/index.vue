@@ -5,10 +5,14 @@
                 <div class="container">
                     <div class="loginList">
                         <p>尚品汇欢迎您！</p>
-                        <p>
+                        <p v-if="!userName">
                             <span>请</span>
                             <router-link to="/login">登录</router-link>
                             <router-link to="/register" class="register">免费注册</router-link>
+                        </p>
+                        <p v-else>
+                            <a href="">{{userName}}</a>
+                            <a href="" @click="logOut">退出登录</a>
                         </p>
                     </div>
                     <div class="typeList">
@@ -68,6 +72,17 @@ export default {
                loction.query = this.$route.query;
                this.$router.push(loction);
            }
+        },
+        async logOut(){
+           //1.发请求给服务器退出登录--服务器清除token
+           //2.清楚项目中的数据【userInfo,token】
+           try{
+           await this.$store.dispatch('userLogOut')
+           //回到首页
+           this.$router.push("/home");
+           }catch(erro){
+            console.log(erro.message);
+           }
         }
     },
     mounted() {
@@ -76,6 +91,12 @@ export default {
             this.keyword = "";
         })
     },
+    computed:{
+        userName(){
+            return this.$store.state.user.userInfo.name;
+            
+        }
+    }
 
 }
 </script>
