@@ -25,7 +25,7 @@ requests.interceptors.request.use((config)=>{
     }
     //需要携带token给服务器
     if(store.state.user.token){
-        config.headers.token = store.state.user.token.token;
+        config.headers.token = store.state.user.token;
     }
     nprogress.start();
     return config;

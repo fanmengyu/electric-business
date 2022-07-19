@@ -77,6 +77,12 @@ const routes = [
 
     },
     {
+        path: "/paysuccess",
+        component: (() => import("@/pages/PaySuccess")),
+        meta: { show: true }
+
+    },
+    {
         path: "/login",
         component: (() => import("@/pages/Login")),
         meta: { show: false }
@@ -134,5 +140,6 @@ router.beforeEach(async (to, from, next) => {
     }
 
 })
+
 
 export default router;

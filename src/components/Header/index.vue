@@ -75,7 +75,7 @@ export default {
         },
         async logOut(){
            //1.发请求给服务器退出登录--服务器清除token
-           //2.清楚项目中的数据【userInfo,token】
+           //2.清除项目中的数据【userInfo,token】
            try{
            await this.$store.dispatch('userLogOut')
            //回到首页
@@ -86,15 +86,14 @@ export default {
         }
     },
     mounted() {
-        //通过全局事件总线清楚关键字
+        //通过全局事件总线清除关键字
         this.$bus.$on("clear",()=>{
             this.keyword = "";
         })
     },
     computed:{
         userName(){
-            return this.$store.state.user.userInfo.name;
-            
+            return this.$store.state.user.userInfo.name;          
         }
     }
 

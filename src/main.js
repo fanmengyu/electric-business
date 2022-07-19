@@ -16,7 +16,9 @@ import router from '@/router';
 
 import store from '@/store/index';
 import {reqGetSearchInfo} from '@/api';
-console.log(reqGetSearchInfo({}))
+// console.log(reqGetSearchInfo({}))
+//统一接口appi文件夹里面全部请求
+import * as API from '@/api'
 
 import '@/mock/mockServer';
 //引入swiper样式
@@ -29,6 +31,7 @@ new Vue({
   //配置全局事件总线
   beforeCreate(){
     Vue.prototype.$bus = this;
+    Vue.prototype.$API = API;
   },
   //注册路由
   router,

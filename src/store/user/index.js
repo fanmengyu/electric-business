@@ -49,7 +49,8 @@ const actions = {
         let result = await reqUserLogin(user);
         // console.log(result)
         if (result.code == 200) {
-            commit("USERLOGIN", result.data);
+            commit("USERLOGIN", result.data.token);
+            setToken(result.data.token)
             return 'ok';
         } else {
             return Promise.reject(new Error('fail-log'));
@@ -59,10 +60,8 @@ const actions = {
 //获取用户信息
     async getUserInfo({commit}){
         let result = await reqUserInfo();
-        console.log(result);
         if (result.code == 200) {
             commit("GETUERINFO", result.data);
-            setToken(result.data.token)
             return 'ok';
         }else{
             
