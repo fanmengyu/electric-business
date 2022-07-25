@@ -27,6 +27,26 @@ VueRouter.prototype.replace = function (location, reslove, reject) {
 Vue.use(VueRouter);
 const routes = [
     {
+        path: "/center",
+        component: (() => import("@/pages/Center")),
+        meta: { show: true },
+        children:[
+            {
+                path: "myorder",
+                component: (() => import("@/pages/Center/myOrder")),
+            },
+            {
+                path: "grouporder",
+                component: (() => import("@/pages/Center/teamOrder")),
+            },
+            {
+                path:'/center',
+                redirect:'/center/myorder'
+            }
+        ]
+
+    },
+    {
         path: "/home",
         component: (() => import("@/pages/Home")),
         meta: { show: true }

@@ -103,7 +103,8 @@ import {mapState} from 'vuex';
     computed:{
       ...mapState({
         addressInfo:state=>state.trade.address,
-        orderInfo:state=>state.trade.orderInfo
+        orderInfo:state=>state.trade.orderInfo,
+        orderId:state=>state.trade.payId
       }),
       //将来提交订单最终选中的地址
       userDefaultAddress(){

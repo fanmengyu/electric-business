@@ -45,6 +45,7 @@ const actions = {
  async submitInfo({ commit, state, dispatch }, { tradeNo, data }) {
     //提交订单的时候：返回一个很重要数据->订单ID【这笔交易唯一标识符:付款人、收款人】
     let result = await reqSubmitOrder(tradeNo, data);
+    console.log('result',result)
     if (result.code == 200) {
         commit('SUBMITINFO', result.data);
         return 'ok';
