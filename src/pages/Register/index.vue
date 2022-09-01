@@ -2,8 +2,7 @@
   <div class="register-container">
     <!-- 注册内容 -->
     <div class="register">
-      <h3>
-        注册新用户
+      <h3>注册新用户
         <span class="go"
           >我有账号，去 <a href="login.html" target="_blank">登陆</a>
         </span>
@@ -14,11 +13,13 @@
         <!-- <span class="error-msg">错误提示信息</span> -->
       </div>
       <div class="content">
-        <label>验证码:</label>
+        <div class="code" style="paddingLeft:100px; marginTop:0px">
+          <label>验证码:</label>
         <input type="text" placeholder="请输入验证码" v-model="code" />
         <button style="width: 100px; height: 38px" @click="getCode(phone)">
           获取验证码
         </button>
+        </div>
         <!-- <span class="error-msg">错误提示信息</span> -->
       </div>
       <div class="content">
@@ -138,9 +139,8 @@
     }
 
     .content {
-      padding-left: 20px;
-      margin-bottom: 18px;
-      // position: relative;
+        margin-bottom: 18px;
+        position: relative;
 
       label {
         font-size: 14px;

@@ -346,7 +346,7 @@
       Zoom
     },
     mounted() {
-      this.$store.dispatch('getGoodInfo',this.$route.params.skuid)
+      this.$store.dispatch('getGoodInfo',this.$route.params.skuId)
     },
     computed:{
       ...mapGetters(['categoryView','skuInfo','spuSaleAttrList']),

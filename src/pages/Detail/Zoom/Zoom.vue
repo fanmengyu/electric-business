@@ -2,8 +2,8 @@
   <div class="spec-preview">
     <img :src="imgObj.imgUrl" />
     <div class="event" @mousemove="handler"></div>
-    <div class="big" ref="big">
-      <img :src="imgObj.imgUrl" />
+    <div class="big" >
+      <img :src="imgObj.imgUrl" ref="big"/>
     </div>
     <div class="mask" ref="mask"></div>
   </div>
@@ -20,7 +20,7 @@
     props:['skuImageList'],
     computed:{
       imgObj(){
-        return this.skuImageList[0]||{}
+        return this.skuImageList[this.currentIndex]||{};
       },
     },
     mounted() {
